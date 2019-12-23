@@ -61,6 +61,21 @@ public class VectorUtil {
 
 	}
 
+
+	public static double signedAngle(double[] a, double[] b, double[] normal) {
+		
+		double[] crossP = crossProduct3D(a, b);
+		normal=unitVector(normal);
+		
+		double dotp = dotProduct(crossP, normal);
+		double dotpAB=dotProduct(a, b);
+		
+		return Math.atan2(dotp, dotpAB);
+		
+		
+	}
+
+	
 	public static double[] vectorBetweenPoints(double[] a, double[] b) {
 		double[] result = new double[a.length];
 		for(int i=0;i<a.length;i++) {
