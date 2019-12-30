@@ -1,5 +1,7 @@
 package hu.kg.math;
 
+import hu.kg.descriptor.Triangle;
+
 public class Transformation {
 
 

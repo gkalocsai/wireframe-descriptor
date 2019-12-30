@@ -1,13 +1,15 @@
-package hu.kg.math;
+package hu.kg.descriptor;
 
 import java.util.Arrays;
+
+import hu.kg.math.VectorUtil;
 
 
 public class Triangle {
 
-	double[] a;
-	double[] b;
-	double[] c;
+	public double[] a;
+	public double[] b;
+	public double[] c;
 	
 	
 	public Triangle(double[] a, double[] b, double[] c) {

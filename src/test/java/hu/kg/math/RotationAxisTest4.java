@@ -10,7 +10,7 @@ import color.ColorTable;
 import display.glwrap.Looper;
 import display.glwrap.Window;
 import display.graphutil.Graphics;
-import hu.kg.math.Triangle;
+import hu.kg.descriptor.Triangle;
 import hu.kg.math.Transformation;
 import hu.kg.math.VectorUtil;
 

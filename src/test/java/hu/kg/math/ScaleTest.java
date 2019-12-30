@@ -2,7 +2,7 @@ package hu.kg.math;
 
 import org.junit.Test;
 
-import hu.kg.math.Triangle;
+import hu.kg.descriptor.Triangle;
 import hu.kg.math.VectorUtil;
 
 public class ScaleTest {

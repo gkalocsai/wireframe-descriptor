@@ -7,8 +7,8 @@ import org.junit.Test;
 import display.glwrap.Looper;
 import display.glwrap.Window;
 import display.graphutil.Graphics;
+import hu.kg.descriptor.Triangle;
 import hu.kg.math.Transformation;
-import hu.kg.math.Triangle;
 import hu.kg.math.VectorUtil;
 
 public class TransformationTest {
