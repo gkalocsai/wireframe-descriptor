@@ -208,4 +208,15 @@ public class Graphics {
 	
 		glEnd();
 	}
+	
+	public static void line3D(Color colorA, Color colorB ,double[] a, double[] b) {
+		glBegin(GL_LINE_STRIP);
+
+		glColor3f( ((float)colorA.getRed())/255.0f,((float)colorA.getGreen())/255.0f,((float)colorA.getBlue())/255.0f);
+		glVertex3dv(a);
+		glColor3f( ((float)colorB.getRed())/255.0f,((float)colorB.getGreen())/255.0f,((float)colorB.getBlue())/255.0f);
+		glVertex3dv(b);
+	
+		glEnd();
+	}
 }

@@ -2,6 +2,8 @@ package hu.kg.main;
 
 import org.junit.Test;
 
+import hu.kg.math.VectorUtil;
+
 public class UnitVectorTest {
 
 

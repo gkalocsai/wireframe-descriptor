@@ -5,6 +5,8 @@ import java.util.PrimitiveIterator.OfDouble;
 import java.util.Random;
 import java.util.stream.DoubleStream;
 
+import hu.kg.math.VectorUtil;
+
 
 
 public class Triangle {
@@ -92,9 +94,9 @@ public class Triangle {
 		double ac = VectorUtil.distanceOfPoints(a, c);
 		double bc = VectorUtil.distanceOfPoints(b, c);
 		
-		if(ab+ac <=bc ) return false;
-		if(bc+ac <=ab ) return false;
-		if(ab+bc <=ac ) return false;		
+		if(ab+ac < bc ) return false;
+		if(bc+ac < ab ) return false;
+		if(ab+bc < ac ) return false;		
 		return true;
 	}
 

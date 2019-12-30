@@ -10,6 +10,7 @@ import color.ColorTable;
 import display.glwrap.Looper;
 import display.glwrap.Window;
 import display.graphutil.Graphics;
+import hu.kg.math.VectorUtil;
 
 public class RotationAxisTest3 {
  
@@ -65,7 +66,7 @@ public class RotationAxisTest3 {
 			    double[] axis = VectorUtil.crossProduct3D(norm, normT);
 			    
 			    
-			    double theta=VectorUtil.angleBetween(norm, normT);
+			    double theta=VectorUtil.signedAngle(norm, normT,axis);
 			    
 			    
 			    double[] rotatedNorm = VectorUtil.rotate(norm, axis, theta);
@@ -92,7 +93,10 @@ public class RotationAxisTest3 {
 			    
 			    Triangle rotated= new Triangle(rx,ry,rz);
 			    drawTriangle(rotated, Color.CYAN);
-			  //  drawTriangle(target, Color.RED);
+			    drawTriangle(t, Color.CYAN);
+				 
+			    
+			    //  drawTriangle(target, Color.RED);
 			 
 			    
 			    double[] midR = VectorUtil.midpoint(rotated.a, rotated.b);

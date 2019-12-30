@@ -1,4 +1,4 @@
-package hu.kg.main;
+package hu.kg.math;
 
 
 import java.awt.Color;
@@ -10,8 +10,11 @@ import color.ColorTable;
 import display.glwrap.Looper;
 import display.glwrap.Window;
 import display.graphutil.Graphics;
+import hu.kg.math.Triangle;
+import hu.kg.math.Transformation;
+import hu.kg.math.VectorUtil;
 
-public class RotationAxisTest {
+public class RotationAxisTest4 {
  
 	@Test
 	public void t() {
@@ -25,45 +28,37 @@ public class RotationAxisTest {
         	
 			@Override
 			public void draw() {
-			    Triangle target=init1();
-			  
-			    X=Math.PI/3;
-			    Y=Math.PI/4;
-			    Z=Math.PI/5;
-			    Triangle t=init2(target,1, X, Y,Z, 0, 0, 0);		    
+			    Triangle target=init1(); 
+			    Triangle t=init2(target,1.5, X, Y,Z, 0, 0, 0);		    
+			    
+			    
+			    
+		 	    Transformation tr=new Transformation(t, target);
+			    
+				t.translate(tr.trans1);
+							
+				Triangle samePlane=t.rotate(tr.intersectionLine, tr.angleOfPlanes);
+			    Triangle result  = samePlane.rotate(tr.axisOfOnPlaneRotation, tr.angleBetweenSides);
+			    
+			    result.scaleAllCoords(tr.scale);
+			    
+			    result.translate(tr.trans2);
 
-//			    drawTriangle(target,30);
-//			    drawTriangle(t,11);
-//			    
-			  
-			    double thetaa = VectorUtil.angleBetween(target.a, t.a);
-			    double thetab = VectorUtil.angleBetween(target.b, t.b);
-			    double thetac = VectorUtil.angleBetween(target.c, t.c);
+			    drawTriangle(samePlane, Color.CYAN);
+			    drawTriangle(t, Color.CYAN);
 			    
 			    
-			    double[] ap = VectorUtil.crossProduct3D(t.a, target.a);
-			    double[] bp = VectorUtil.crossProduct3D(t.b, target.b);
-			    double[] cp = VectorUtil.crossProduct3D(t.c, target.c);
+			    
+			    drawTriangle(target, Color.RED);
+			    drawTriangle(result, Color.GREEN);
+				
 			    
 			    
-			    System.out.println(cp[0]+" "+cp[1]+" "+cp[2]);
+			    X+=0.0522254;
+			    Y+=0.04341;
+			    Z+=0.0222;
 			    
-			    
-			    double[] rx = VectorUtil.rotate(t.a, ap, thetaa);
-			    double[] ry = VectorUtil.rotate(t.b, bp, thetab);
-			    double[] rz = VectorUtil.rotate(t.c, cp, thetac);
-			    
-			    
-			    Triangle rotated= new Triangle(rx,ry,rz);
-			    //rotated.scaleAllCoords(0.5);
-			    
-			    
-			    drawTriangle(target, 42);
-			    drawTriangle(t, 40);
-			    drawTriangle(rotated, 11);
-				    
-			    
-			    
+			 
 			    
 			}
 
@@ -110,10 +105,10 @@ public class RotationAxisTest {
 
 
 
-			private void drawTriangle(Triangle t, int color) {
-				Graphics.filledTriangle3D(ColorTable.getOne(color), t.a,t.b,t.c);
+			private void drawTriangle(Triangle t, Color color) {
+				//Graphics.filledTriangle3D(ColorTable.getOne(color), t.a,t.b,t.c);
 				Graphics.line3D(Color.WHITE, t.a, t.b);
-				Graphics.line3D(Color.RED, t.a, t.c);
+				Graphics.line3D(color, t.a, t.c);
 				Graphics.line3D(Color.YELLOW, t.b, t.c);
 				
 				
@@ -123,23 +118,10 @@ public class RotationAxisTest {
 
 			private Triangle init1() {
 				double[] a = {0,0.5,0};
-				double[] b = {0.3,0,0};
-			    double[] c = {0,0,0};
+				double[] b = {0.5,0,0.5};
+			    double[] c = {0.3,0.3,0};
 				
-			    
-			    
-			    double[] mp = VectorUtil.midpoint(a, b);
-			    
-			    
-			    
-			    a=VectorUtil.translatePoint(a, -mp[0], -mp[1], -mp[2]);
-			    b=VectorUtil.translatePoint(b, -mp[0], -mp[1], -mp[2]);
-			    c=VectorUtil.translatePoint(c, -mp[0], -mp[1], -mp[2]);
-			    
-			    
-				return new Triangle(a,b,c);
-				
-				
+			    return new Triangle(a,b,c);
 				
 			}
 

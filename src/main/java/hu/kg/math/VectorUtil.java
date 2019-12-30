@@ -1,4 +1,4 @@
-package hu.kg.main;
+package hu.kg.math;
 
 public class VectorUtil {
 
@@ -48,17 +48,6 @@ public class VectorUtil {
 
 	public static double vectorLength(double[] a) {
 		return Math.sqrt(squaredDistance(a, ORIGO));
-	}
-
-	public static double angleBetween(double[] a, double[] b) {
-		double dotP=dotProduct(a, b);
-		double aL=vectorLength(a);
-		double bL=vectorLength(b);
-
-		double cosA=dotP/(aL*bL);
-		double A=Math.acos(cosA);
-		return A;
-
 	}
 
 
@@ -126,13 +115,25 @@ public class VectorUtil {
 	public static double[] scaledPoint(double[] a, double[] b, double scale) {
 
 		double v[]=vectorBetweenPoints(a, b);
-		double ab=distanceOfPoints(a, b);
-
+		
 		double[] result = new double[3];
 		for(int i=0;i<v.length;i++) {	
 			result[i]=(v[i]*scale)+a[i];
 		}
 		return result;
+	}
+	
+	
+	public static double[] shrear(double[] a, double[] b, double scale) {
+	    double v[]=vectorBetweenPoints(b, a);
+		
+		double[] result = new double[3];
+		for(int i=0;i<v.length;i++) {	
+			result[i]=(v[i]*scale)+a[i];
+		}
+		return result;
+	
+	
 	}
 
 	public static double[] rotateAroundOrigo(double[] a, double X, double Y, double Z) {
@@ -198,5 +199,37 @@ public class VectorUtil {
 		return result;
 	}
 	
+	public static boolean isClockwise(double[] a, double[] b, double[] c) {
+		//  (b-a) x (c-b)
+		double[] ab=VectorUtil.vectorBetweenPoints(a, b);
+		double[] bc=VectorUtil.vectorBetweenPoints(b, c);
+		double[] crossp=VectorUtil.crossProduct3D(ab, bc);
+		
+		return crossp[2] < 0;
+	}
 
+
+	
+	public static double[] paralellComponent(double[] v, double[] planeNormal) {
+		
+		double[] result = crossProduct3D(v, planeNormal);
+		double pLength = distanceOfPoints(ORIGO, planeNormal);
+		result[0]/=pLength; result[1]/=pLength; result[2]/=pLength;
+		result = crossProduct3D(planeNormal,result);
+		result[0]/=pLength; result[1]/=pLength; result[2]/=pLength;
+		return result;
+	}
+	
+	public static double[] perpComponent(double[] v, double[] planeNormal) {
+	  
+		double[] result=new double[3];
+		double pLength = distanceOfPoints(ORIGO, planeNormal);
+		pLength*=pLength;
+		double m = dotProduct(v, planeNormal);
+		result[0]=m* planeNormal[0]/pLength;
+		result[1]=m* planeNormal[1]/pLength;
+		result[2]=m* planeNormal[2]/pLength;
+		return result;
+	}
+	
 }
