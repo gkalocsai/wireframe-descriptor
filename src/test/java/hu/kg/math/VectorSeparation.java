@@ -54,8 +54,8 @@ public class VectorSeparation {
 					double[] p2rb= {p2[0]+p2z,p2[1]-p2z,0};
 	
 					
-					double[] paralell=VectorUtil.paralellComponent(p1, p2);
-					double[] perp=VectorUtil.perpComponent(p1, p2);
+					double[] paralell=VectorUtil.perp(p1, p2);
+					double[] perp=VectorUtil.paralell(p1, p2);
 					
 					
 					

@@ -75,6 +75,22 @@ public class Triangle {
 		    double[] rrz = VectorUtil.rotate(c, axis, rad);
 		    return new Triangle(rrx,rry,rrz);
 	}
+
+
+
+	public void paraScale(double[] bcVector, double paraScale) {
+		a=VectorUtil.paralellScale(a,bcVector,paraScale);
+		b=VectorUtil.paralellScale(b,bcVector,paraScale);
+		c=VectorUtil.paralellScale(c,bcVector,paraScale);
+	}
+	
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		sb.append(a[0]+" "+a[1]+" "+a[2]+" | "+b[0]+" "+b[1]+" "+b[2]+" | "+c[0]+" "+c[1]+" "+c[2]);
+		return sb.toString();
+		
+		
+	}
 	
 	
 }

@@ -210,17 +210,17 @@ public class VectorUtil {
 
 
 	
-	public static double[] paralellComponent(double[] v, double[] planeNormal) {
+	public static double[] perp(double[] v, double[] otherVector) {
 		
-		double[] result = crossProduct3D(v, planeNormal);
-		double pLength = distanceOfPoints(ORIGO, planeNormal);
+		double[] result = crossProduct3D(v, otherVector);
+		double pLength = distanceOfPoints(ORIGO, otherVector);
 		result[0]/=pLength; result[1]/=pLength; result[2]/=pLength;
-		result = crossProduct3D(planeNormal,result);
+		result = crossProduct3D(otherVector,result);
 		result[0]/=pLength; result[1]/=pLength; result[2]/=pLength;
 		return result;
 	}
 	
-	public static double[] perpComponent(double[] v, double[] planeNormal) {
+	public static double[] paralell(double[] v, double[] planeNormal) {
 	  
 		double[] result=new double[3];
 		double pLength = distanceOfPoints(ORIGO, planeNormal);
@@ -230,6 +230,30 @@ public class VectorUtil {
 		result[1]=m* planeNormal[1]/pLength;
 		result[2]=m* planeNormal[2]/pLength;
 		return result;
+	}
+
+
+	public static double[] addVectors(double[] a, double[] b) {
+		
+		
+		double[] result=new double[a.length];
+		for(int i=0;i<a.length;i++) {
+			result[i]=a[i]+b[i];
+		}
+		return result;
+	}
+
+
+	public static double[] paralellScale(double[] p, double[] bcVector, double paraScale) {
+	
+		
+		double[] para = paralell(p, bcVector);
+		double[] scaledPara = VectorUtil.scaledPoint(VectorUtil.ORIGO, para, paraScale);
+
+		
+		double[] perp = VectorUtil.perp(p, bcVector);
+		return VectorUtil.addVectors(perp,scaledPara);
+
 	}
 	
 }

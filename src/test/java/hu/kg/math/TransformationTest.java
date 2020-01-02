@@ -30,27 +30,24 @@ public class TransformationTest {
 			    Triangle t=init2();		    
 			        
 		 	    Transformation tr=new Transformation(t, target);
-
-		 	    System.out.println(tr.angleWithXY);
-		 	    
-		 	   System.out.println(tr.intersectionLine[0]+" "+tr.intersectionLine[1]+" "+tr.intersectionLine[2]);
+                t.paraScale(tr.bcVector,tr.paraScale);
+                t.scaleAllCoords(tr.scale);
+                
+                System.out.println(tr.axisOfOnPlaneRotation[0]);
+                t=t.rotate(tr.axisOfOnPlaneRotation, Math.PI/6);
+                
+                
+                
+                
+				
+                drawTriangle(target, Color.RED);
+                drawTriangle(t, Color.GREEN);
 		 	    
 		 	   
-			    t.translate(tr.trans1);
-				t = t.rotate(tr.XYintersectionLine, tr.angleWithXY);
-				t = t.rotate(tr.axisOfXYPlaneRotation, tr.angleOnXY);
-				Triangle samePlane=t.rotate(tr.intersectionLine, tr.angleOfPlanes);
-			    Triangle result  = samePlane.rotate(tr.axisOfOnPlaneRotation, tr.angleBetweenSides);
-			    result.translate(tr.trans2);
-//			
-			   
 				
-			    drawTriangle(target, Color.RED);
-			    drawTriangle(result, Color.GREEN);
 			
 			    
-			    
-			 
+						 
 			    
 			}
 
@@ -58,16 +55,22 @@ public class TransformationTest {
 			
 			private Triangle init2() {
 				
-				double[] a = {0.6,0,0};
-				double[] b = {0,0.0,0.6};
+				double[] a = {0.75,0,0};
+				double[] b = {0,0.75,0};
 			    double[] c = {0,0,0};
 				   
 				return new Triangle(a,b,c);
 					
-			
-			
 			}
 
+			private Triangle init1() {
+				double[] a = {-0.5,0,0};
+				double[] b = {0.5,0,0};
+				double[] c = {0.25,0.5,0};
+				
+				
+				return new Triangle(a,b,c);				
+			}
 
 
 			private void drawTriangle(Triangle t, Color color) {
@@ -81,16 +84,6 @@ public class TransformationTest {
 
 
 
-			private Triangle init1() {
-				double[] a = {0,0.5,0};
-				double[] b = {0.5,0,0};
-			    double[] c = {0.0,0.0,0};
-				   
-				return new Triangle(a,b,c);
-				
-				
-				
-			}
 
 
 

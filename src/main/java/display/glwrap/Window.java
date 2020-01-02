@@ -33,14 +33,18 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
+import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.nio.IntBuffer;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryStack;
 
 public class Window {
@@ -66,8 +70,7 @@ public class Window {
 	}
 
 	public Window(Looper looper, String title, int width, int height) {
-		d = looper;
-		// TODO Auto-generated constructor stub
+		this.d = looper;
 		this.title = title;
 		this.width = width;
 		this.height = height;
@@ -171,9 +174,17 @@ public class Window {
 
 		// Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		double aspect = screenSize.getWidth()/screenSize.getHeight();
+		
+		GL11.glLoadIdentity();
+		GL11.glScaled(1.0/aspect, 1, 1);
 		while ( !glfwWindowShouldClose(window) ) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
+			
 			glMatrixMode(GL_MODELVIEW); 
 
 			this.d.draw();

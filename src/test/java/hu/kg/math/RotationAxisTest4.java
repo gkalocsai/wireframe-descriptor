@@ -35,6 +35,10 @@ public class RotationAxisTest4 {
 			    
 		 	    Transformation tr=new Transformation(t, target);
 			    
+		 	    t.translate(tr.trans0);
+		 	    t.paraScale(tr.bcVector, tr.paraScale);
+		 	    
+		 	    
 				t.translate(tr.trans1);
 							
 				Triangle samePlane=t.rotate(tr.intersectionLine, tr.angleOfPlanes);

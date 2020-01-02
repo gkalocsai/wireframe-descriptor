@@ -8,6 +8,7 @@ public class Face {
 	
 	Vertex[] vertices;
 	Color color;
+	String name;
 	
 	public Face(List<Vertex> vl, Color color) {
 		vertices=new Vertex[vl.size()];
@@ -24,6 +25,12 @@ public class Face {
 
 	public Color getColor() {
 		return color;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
