@@ -33,7 +33,6 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
-import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;

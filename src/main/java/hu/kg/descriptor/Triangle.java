@@ -7,21 +7,31 @@ import hu.kg.math.VectorUtil;
 
 public class Triangle {
 
-	public double[] a;
-	public double[] b;
-	public double[] c;
+	public Vertex a;
+	public Vertex b;
+	public Vertex c;
 	
 	
 	public Triangle(double[] a, double[] b, double[] c) {
 		super();
+		this.a = new Vertex(a);
+		this.b = new Vertex(b);
+		this.c = new Vertex(c);
+		
+	}
+
+	
+	
+	public Triangle(Vertex a, Vertex b, Vertex c) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
 	}
 
-	
-	
+
+
 	public static boolean isTriangle(double[] a, double[] b, double[] c) {
+		
 		double ab = VectorUtil.distanceOfPoints(a, b);
 		double ac = VectorUtil.distanceOfPoints(a, c);
 		double bc = VectorUtil.distanceOfPoints(b, c);
@@ -34,59 +44,56 @@ public class Triangle {
 
 	public Triangle copy() {
 		
-		double[] a2 = Arrays.copyOf(a, 3);
-		double[] b2 = Arrays.copyOf(b, 3);
-		double[] c2 = Arrays.copyOf(c, 3);
-			
-	
-		return new Triangle(a2, b2, c2);
+		
+		return new Triangle(a.copy(), b.copy(), c.copy());
+		
 	}
 
 	public void translate(double[] t) {
 	
-		this.a=VectorUtil.translatePoint(a, t[0], t[1], t[2]);
-		this.b=VectorUtil.translatePoint(b, t[0], t[1], t[2]);
-		this.c=VectorUtil.translatePoint(c, t[0], t[1], t[2]);
+		a.translate(t);
+		b.translate(t);
+		c.translate(t);
 		
 	}
 
 
 
 	public void scaleAllCoords(double scale) {
+	
+		a.coords[0]*=scale;
+		a.coords[1]*=scale;
+		a.coords[2]*=scale;
 		
-		a[0]*=scale;
-		a[1]*=scale;
-		a[2]*=scale;
+		b.coords[0]*=scale;
+		b.coords[1]*=scale;
+		b.coords[2]*=scale;
 		
-		b[0]*=scale;
-		b[1]*=scale;
-		b[2]*=scale;
-		
-		c[0]*=scale;
-		c[1]*=scale;
-		c[2]*=scale;
+		c.coords[0]*=scale;
+		c.coords[1]*=scale;
+		c.coords[2]*=scale;
 		
 				
 	}
 	
 	public Triangle rotate(double[] axis, double rad) {
-            double[] rrx = VectorUtil.rotate(a, axis, rad);
-		    double[] rry = VectorUtil.rotate(b, axis, rad);
-		    double[] rrz = VectorUtil.rotate(c, axis, rad);
+            double[] rrx = VectorUtil.rotate(a.coords, axis, rad);
+		    double[] rry = VectorUtil.rotate(b.coords, axis, rad);
+		    double[] rrz = VectorUtil.rotate(c.coords, axis, rad);
 		    return new Triangle(rrx,rry,rrz);
 	}
 
 
 
 	public void paraScale(double[] bcVector, double paraScale) {
-		a=VectorUtil.paralellScale(a,bcVector,paraScale);
-		b=VectorUtil.paralellScale(b,bcVector,paraScale);
-		c=VectorUtil.paralellScale(c,bcVector,paraScale);
+		a=new Vertex(VectorUtil.paralellScale(a.coords,bcVector,paraScale));
+		b=new Vertex(VectorUtil.paralellScale(b.coords,bcVector,paraScale));
+		c=new Vertex(VectorUtil.paralellScale(c.coords,bcVector,paraScale));
 	}
 	
 	public String toString() {
 		StringBuilder sb=new StringBuilder();
-		sb.append(a[0]+" "+a[1]+" "+a[2]+" | "+b[0]+" "+b[1]+" "+b[2]+" | "+c[0]+" "+c[1]+" "+c[2]);
+		sb.append(a+" | "+b+" | "+c );
 		return sb.toString();
 		
 		

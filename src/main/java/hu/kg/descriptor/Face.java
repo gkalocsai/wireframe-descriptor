@@ -8,7 +8,7 @@ public class Face {
 	
 	Vertex[] vertices;
 	Color color;
-	String name;
+	
 	
 	public Face(List<Vertex> vl, Color color) {
 		vertices=new Vertex[vl.size()];
@@ -19,6 +19,12 @@ public class Face {
 		this.color = color;
 	}
 
+	private Face(Vertex[] nv, Color color) {
+		this.vertices = nv;
+		this.color = color;
+		
+	}
+
 	public Vertex[] getVertices() {
 		return vertices;
 	}
@@ -27,10 +33,14 @@ public class Face {
 		return color;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-		// TODO Auto-generated method stub
-		
+	
+	
+	public Face copy() {
+		Vertex[] nv=new Vertex[vertices.length];
+		for(int i=0;i<vertices.length;i++) {
+			nv[i]=vertices[i].copy();
+		}	
+		return new Face(nv,color);
 	}
 	
 	
