@@ -15,10 +15,6 @@ public class Main2 {
 	public static void main(String[] args) throws IOException {
 	    
 		Descriptor d=new Descriptor(StringLoadUtil.load(args[0]));
-		
-		
-		
-		
 		Looper l=new Looper() {
 			
 			

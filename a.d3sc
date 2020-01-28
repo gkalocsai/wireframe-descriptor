@@ -26,6 +26,7 @@ F2(0.25,-0.5,0.5)
 
 
 triangle<A,B,T>
+triangle2<A,B,A2>
 
 
 Cube
@@ -438,10 +439,10 @@ HH126(0.1998898836448998,-0.006635843309514204,0.2)
 {H126,HH126,HH1,H1}
 
 
-
-
-
 Complex[HexaPrism]	
 C:Cube  
 C.Triang -> t2
 triangle <- C.t2
+D:Cube
+triangle2 <- D.Triang
+

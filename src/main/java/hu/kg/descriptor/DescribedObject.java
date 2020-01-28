@@ -99,7 +99,7 @@ public class DescribedObject {
 		for(String k:other.name2Vertex.keySet()) {
 			other.name2Vertex.get(k).transform(tr);
 		}
-		other.renameVertices();
+		renameVertices();
 	
 		for(String vname:other.name2Vertex.keySet()) {
 			name2Vertex.put(vname, other.name2Vertex.get(vname));
