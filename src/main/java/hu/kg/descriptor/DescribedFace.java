@@ -19,10 +19,20 @@ public class DescribedFace {
 			
 			df.addName(s);
 		}
-		
+		df.surfaceId = this.surfaceId;
 		return df;
 	}
 
+	private String surfaceId;
+	
+	public String getSurfaceId() {
+		return surfaceId;
+	}
+	public void setSurfaceId(String surfaceId) {
+		this.surfaceId = surfaceId;
+	}
+	
+	
 	
 	
 	

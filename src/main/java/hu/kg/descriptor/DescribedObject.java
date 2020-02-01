@@ -140,6 +140,7 @@ public class DescribedObject {
 		Set<String> vertexNames = name2Vertex.keySet();
 		double[][] points=new double[vertexNames.size()][];
 		int[][] nfaces=new int[faces.size()][];
+		String[] surfaceIdA=new String[faces.size()];
 		
 		Map<String, Integer> name2PointIndex=new HashMap<String, Integer>();
 		int i=0;
@@ -151,6 +152,7 @@ public class DescribedObject {
 		
 		i=0;
 		for(DescribedFace df:faces) {
+			surfaceIdA[i]=df.getSurfaceId();
 			nfaces[i]=new int[df.vertices.size()];
 			int k=0;
 			for(String vname:df.vertices) {
@@ -159,7 +161,7 @@ public class DescribedObject {
 			}
 			i++;
 		}	
-		return new Object3D(points, nfaces);
+		return new Object3D(points, nfaces,surfaceIdA);
 		
 	}
 

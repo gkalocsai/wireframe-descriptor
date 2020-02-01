@@ -234,8 +234,6 @@ public class VectorUtil {
 
 
 	public static double[] addVectors(double[] a, double[] b) {
-		
-		
 		double[] result=new double[a.length];
 		for(int i=0;i<a.length;i++) {
 			result[i]=a[i]+b[i];
@@ -244,6 +242,25 @@ public class VectorUtil {
 	}
 
 
+	
+	public static double[] subVectors(double[] a, double[] b) {
+		double[] result=new double[a.length];
+		for(int i=0;i<a.length;i++) {
+			result[i]=a[i]-b[i];
+		}
+		return result;
+	}
+
+	
+	public static double[] mul(double[] a, double multiplier) {
+		double[] result=new double[a.length];
+		for(int i=0;i<a.length;i++) {
+			result[i]=a[i]*multiplier;
+		}
+		return result;
+	}
+
+	
 	public static double[] paralellScale(double[] p, double[] bcVector, double paraScale) {
 	
 		
@@ -254,6 +271,29 @@ public class VectorUtil {
 		double[] perp = VectorUtil.perp(p, bcVector);
 		return VectorUtil.addVectors(perp,scaledPara);
 
+	}
+	
+	public static double[] circumCenter(double[] a, double[] b, double[] c) {
+	
+		double cma = squaredDistance(ORIGO,subVectors(c, a));
+		double bma = squaredDistance(ORIGO,subVectors(b, a));
+			
+		double[] ba = subVectors(b, a);
+		double[] ca = subVectors(c, a);
+		
+		double[] f1 = mul(crossProduct3D(crossProduct3D(ba,ca),ba),cma);
+		double[] f2 = mul(crossProduct3D(crossProduct3D(ca,ba),ca),bma);
+		double[] sum = addVectors(f1, f2);
+		
+		double sd = squaredDistance(crossProduct3D(ba, ca),ORIGO);
+		
+		
+		sd*=2.0;
+		sd=1/sd;
+		
+        double[] m = mul(sum,sd);
+        m=addVectors(m, a);
+		return m;
 	}
 	
 }

@@ -45,12 +45,12 @@ T1(0.75,0,0.5)
 T2(0,0.75,0.5)
 T3(0,0,0.5)
 
-{A,B,C,D}
-{A2,B2,C2,D2}
-{A,A2,B2,B}
-{B,B2,C2,C}
-{C,C2,D2,D}
-{D,D2,A2,A}
+{A,B,C,D}yellow
+{A2,B2,C2,D2}red
+{A,A2,B2,B}blue
+{B,B2,C2,C}orange
+{C,C2,D2,D}green
+{D,D2,A2,A}purple
 
 Triang<T1,T2,T3>
 

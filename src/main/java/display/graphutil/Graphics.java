@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.GL_LINES;
 import static org.lwjgl.opengl.GL11.GL_LINE_STRIP;
 import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
 import static org.lwjgl.opengl.GL11.GL_POINTS;
+import static org.lwjgl.opengl.GL11.GL_POLYGON;
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL11.glBegin;
@@ -12,16 +13,15 @@ import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.glVertex3dv;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 
-import static org.lwjgl.opengl.GL11.glVertex3dv;
-
-
 import java.awt.Color;
+import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
-
+import color.ColorTable;
 public class Graphics {
 
 	
@@ -46,15 +46,15 @@ public class Graphics {
 		float x,y;
 		for (int i = 0; i < 180; i++)
 		{
-			x = (float) (r * Math.cos(i) - h);
-			y = (float) (r * Math.sin(i) + k);
+			x = (float) (r * Math.cos(i));
+			y = (float) (r * Math.sin(i));
 			
 			
-			glVertex2f( (x + k),  (y - h));
+			glVertex2f( (x + h),  (y + k));
 
-			x = (float) (r * Math.cos(i + 0.1) - h);
-			y = (float) (r * Math.sin(i + 0.1) + k);
-			glVertex2f( (x + k), (y - h));
+			x = (float) (r * Math.cos(i + 0.1));
+			y = (float) (r * Math.sin(i + 0.1));
+			glVertex2f( (x + h), (y + k));
 
 		}
 		glEnd();
@@ -219,4 +219,30 @@ public class Graphics {
 	
 		glEnd();
 	}
+	
+	public static void show(Object3D o3d) {
+		Random random=new Random(345);
+	
+		//glEnable(GL_CULL_FACE);  
+		
+		//glEnable(GL_DEPTH_TEST);  
+		
+		
+		for(int i=0;i<o3d.faces.length;i++) {
+			
+			Color faceColor=ColorTable.getOne(random.nextInt());
+			glColor3f( ((float)faceColor.getRed())/255.0f,((float)faceColor.getGreen())/255.0f,((float)faceColor.getBlue())/255.0f);
+			int[] pointIndices = o3d.faces[i];
+			glBegin(GL_POLYGON);
+              for(int k=0;k<pointIndices.length;k++) {
+            	  double[] vertex = o3d.points[pointIndices[k]];
+            	  glVertex3dv(vertex);
+              }
+			glEnd();	
+		}
+		
+	}
+	
+	
+	
 }

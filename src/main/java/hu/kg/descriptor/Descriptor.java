@@ -65,11 +65,19 @@ public class Descriptor {
 			}
 
 			else if(l.startsWith("{")) {
-				String innserString = l.substring(1, l.length()-1);
+				String innserString = l.substring(1, l.indexOf("}"));
 				String[] vs=innserString.split(",");
 				DescribedFace dface=new DescribedFace();
 				for(String v:vs) {
 					dface.vertices.add(v);
+				}
+				String surfaceId = l.substring(l.indexOf("}"));
+				surfaceId=surfaceId.trim();
+				if(surfaceId.length()<=1) {
+					surfaceId=null;
+				}else {
+					surfaceId=surfaceId.substring(1);
+					dface.setSurfaceId(surfaceId);
 				}
 				dobj.addFace(dface);
 			}
