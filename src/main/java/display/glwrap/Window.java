@@ -33,6 +33,12 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE; // Add this import
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST; // Add this import
+import static org.lwjgl.opengl.GL11.GL_FRONT_FACE; // Add this import
+import static org.lwjgl.opengl.GL11.GL_CCW;        // Add this import
+import static org.lwjgl.opengl.GL11.glEnable;      // Add this import
+import static org.lwjgl.opengl.GL11.glFrontFace;  
 
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
@@ -161,25 +167,26 @@ public class Window {
 	}
 
 	private void loop() {
-		// This line is critical for LWJGL's interoperation with GLFW's
-		// OpenGL context, or any context that is managed externally.
-		// LWJGL detects the context that is current in the current thread,
-		// creates the GLCapabilities instance and makes the OpenGL
-		// bindings available for use.
+	
 		GL.createCapabilities();
+	    GL11.glEnable(GL11.GL_DEPTH_TEST); // Ensure near objects cover far objects
+	    GL11.glEnable(GL11.GL_CULL_FACE);  // Don't render the "inside" of polygons
+	    GL11.glFrontFace(GL11.GL_CCW);     // Define Counter-Clockwise as the front face
+	    GL11.glMatrixMode(GL11.GL_PROJECTION); // Switch to projection mode
+	    GL11.glLoadIdentity();                // Reset matrix
 
-		// Set the clear color
-		//glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+	    // Parameters for glFrustum: (left, right, bottom, top, near, far)
+	    // By setting the 'near' value lower (e.g., 0.1), you allow objects 
+	    // to get much closer to the camera before they disappear.
 
-		// Run the rendering loop until the user has attempted to close
-		// the window or has pressed the ESCAPE key.
+	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double aspect = (double) screenSize.getWidth() / (double) screenSize.getHeight();
+		GL11.glFrustum(-aspect, aspect, -1.0, 1.0, 0.1, 1000.0); 
 
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		
-		double aspect = screenSize.getWidth()/screenSize.getHeight();
-		
+	    GL11.glMatrixMode(GL11.GL_MODELVIEW); // Switch back to modelview for drawing
+
 		GL11.glLoadIdentity();
-		GL11.glScaled(1.0/aspect, 1, 1);
+	//	GL11.glScaled(1.0/aspect, 1, 1);
 		while ( !glfwWindowShouldClose(window) ) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 

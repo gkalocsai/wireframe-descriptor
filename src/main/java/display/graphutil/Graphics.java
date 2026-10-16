@@ -221,26 +221,61 @@ public class Graphics {
 	}
 	
 	public static void show(Object3D o3d) {
-		Random random=new Random(345);
-	
-		//glEnable(GL_CULL_FACE);  
-		
-		//glEnable(GL_DEPTH_TEST);  
-		
-		
-		for(int i=0;i<o3d.faces.length;i++) {
-			
-			Color faceColor=ColorTable.getOne(random.nextInt());
-			glColor3f( ((float)faceColor.getRed())/255.0f,((float)faceColor.getGreen())/255.0f,((float)faceColor.getBlue())/255.0f);
-			int[] pointIndices = o3d.faces[i];
-			glBegin(GL_POLYGON);
-              for(int k=0;k<pointIndices.length;k++) {
-            	  double[] vertex = o3d.points[pointIndices[k]];
-            	  glVertex3dv(vertex);
-              }
-			glEnd();	
-		}
-		
+	    for (int i = 0; i < o3d.faces.length; i++) {
+	        Color faceColor = colorForSurface(o3d.surfaceIds[i], i);
+
+	        glColor3f(
+	            faceColor.getRed() / 255.0f,
+	            faceColor.getGreen() / 255.0f,
+	            faceColor.getBlue() / 255.0f
+	        );
+
+	        int[] pointIndices = o3d.faces[i];
+
+	        glBegin(GL_POLYGON);
+	        for (int k = 0; k < pointIndices.length; k++) {
+	            glVertex3dv(o3d.points[pointIndices[k]]);
+	        }
+	        glEnd();
+	    }
+	}
+
+	private static Color colorForSurface(String surfaceId, int faceIndex) {
+	    if (surfaceId == null || surfaceId.trim().isEmpty()) {
+	        return ColorTable.getOne(faceIndex);
+	    }
+
+	    String color = surfaceId.trim().toLowerCase();
+
+	    switch (color) {
+	        case "red":       return Color.RED;
+	        case "green":     return Color.GREEN;
+	        case "blue":      return Color.BLUE;
+	        case "yellow":    return Color.YELLOW;
+	        case "orange":    return Color.ORANGE;
+	        case "pink":      return Color.PINK;
+	        case "cyan":      return Color.CYAN;
+	        case "magenta":   return Color.MAGENTA;
+	        case "white":     return Color.WHITE;
+	        case "black":     return Color.BLACK;
+	        case "gray":
+	        case "grey":      return Color.GRAY;
+	        case "darkgray":
+	        case "darkgrey":  return Color.DARK_GRAY;
+	        case "lightgray":
+	        case "lightgrey": return Color.LIGHT_GRAY;
+	        case "purple":    return new Color(128, 0, 128);
+	        case "brown":     return new Color(139, 69, 19);
+	        case "silver":    return new Color(192, 192, 192);
+	        case "gold":      return new Color(255, 215, 0);
+	        default:
+	            try {
+	                // Supports descriptor values such as #33AAFF.
+	                return Color.decode(surfaceId.trim());
+	            } catch (NumberFormatException e) {
+	                return ColorTable.getOne(surfaceId.hashCode());
+	            }
+	    }
 	}
 	
 	

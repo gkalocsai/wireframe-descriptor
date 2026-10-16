@@ -16,9 +16,6 @@ public class Object3D {
 		this.faces = faces;
 		this.surfaceIds=surfaceIdA;
 		
-		for(String s: surfaceIds) {
-			System.out.println(s);
-		}
 	}
 		
 	public void rotateAroundOrigo(double pitch, double yaw, double roll ) {

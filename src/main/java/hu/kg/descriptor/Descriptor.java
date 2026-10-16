@@ -69,7 +69,7 @@ public class Descriptor {
 				String[] vs=innserString.split(",");
 				DescribedFace dface=new DescribedFace();
 				for(String v:vs) {
-					dface.vertices.add(v);
+					dface.vertices.add(v.trim());
 				}
 				String surfaceId = l.substring(l.indexOf("}"));
 				surfaceId=surfaceId.trim();
@@ -93,7 +93,7 @@ public class Descriptor {
 				
 			}	
 			else if(l.indexOf('<')>=0) {
-				String triangleName=l.substring(0, l.indexOf("<"));
+				String triangleName=l.substring(0, l.indexOf("<")).trim();
 				String edges = l.substring(l.indexOf('<')+1, l.length()-1);
 				String[] vs=edges.split(",");
 
@@ -101,7 +101,7 @@ public class Descriptor {
 				dTriangle.name=triangleName;
 
 				for(String vname:vs) {
-					dTriangle.verticeNames.addName(vname);
+					dTriangle.verticeNames.addName(vname.trim()); 
 				}
 				dobj.addTriangle(dTriangle);
 				

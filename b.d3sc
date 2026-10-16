@@ -1,0 +1,63 @@
+# ================================================================================
+# PRIMITIVE: Box
+# Used as the basic modular unit for the ship parts.
+# ================================================================================
+Box
+v0(0,0,0)
+v1(1,0,0)
+v2(1,1,0)
+v3(0,1,0)
+v4(0,0,1)
+v5(1,0,1)
+v6(1,1,1)
+v7(0,1,1)
+
+{v0,v3,v2,v1}gray
+{v4,v5,v6,v7}gray
+{v0,v1,v5,v4}gray
+{v2,v3,v7,v6}gray
+{v0,v4,v7,v3}gray
+{v1,v2,v6,v5}gray
+
+# IMPORTANT: No spaces before the < bracket to avoid NPE in the parser
+Tbot<v0,v1,v2>
+Ttop<v4,v5,v6>
+Tfront<v0,v1,v5>
+Tback<v2,v3,v7>
+Tleft<v0,v3,v7>
+Tright<v1,v2,v6>
+
+# ================================================================================
+# ASSEMBLY: UWing
+# Using the glue operation (<-) to snap parts together.
+# ================================================================================
+Complex[Box]
+cockpit:Box
+engine:Box
+wFL:Box
+wFR:Box
+wBL:Box
+wBR:Box
+
+# Assemble the central spine
+Tfront <- cockpit.Tback
+Tback <- engine.Tfront
+
+# Attach wings to the core body (left and right)
+Tleft <- wFL.Tright
+Tright <- wFR.Tleft
+
+# Attach rear wings (using the same glue points on the assembled complex)
+# Since we are in 'Complex', these attach to the sides of the central block
+Tleft <- wBL.Tright
+Tright <- wBR.Tleft
+
+# ================================================================================
+# DETAILS: Adding a cockpit canopy color
+# ================================================================================
+Canopy[Box]
+{v4,v5,v6,v7}cyan
+Tbot<v0,v1,v2>
+
+TopDetail:Canopy
+Ttop <- TopDetail.Tbot
